@@ -1,0 +1,5 @@
+# In order to bundle my js and use require in the browser ;) #
+browserify index.js -o bundle.js 
+
+# Watcher in order to detect changes 
+watchify index.js -o bundle.js

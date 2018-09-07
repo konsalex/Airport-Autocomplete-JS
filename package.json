@@ -1,0 +1,21 @@
+{
+  "name": "airport-picker",
+  "version": "1.0.0",
+  "description": "Airport Autocomplete input tag",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "airport",
+    "picker",
+    "autocomplete",
+    "js",
+    "npm"
+  ],
+  "author": "Konsalex,Raptis",
+  "license": "ISC",
+  "dependencies": {
+    "fuse.js": "^3.2.1"
+  }
+}
