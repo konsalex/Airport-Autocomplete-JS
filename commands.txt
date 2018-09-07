@@ -3,3 +3,8 @@ browserify index.js -o bundle.js
 
 # Watcher in order to detect changes 
 watchify index.js -o bundle.js
+
+# Build-Bundle-Minify
+# npm install uglify-es -g because simple uglifyjs doesn't support ES6
+
+browserify index.js | uglifyjs > bundle.min.js

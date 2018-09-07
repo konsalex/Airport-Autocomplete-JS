@@ -1,5 +1,5 @@
 {
-  "name": "airport-picker",
+  "name": "airport-autocomplete-js",
   "version": "1.0.0",
   "description": "Airport Autocomplete input tag",
   "main": "index.js",
