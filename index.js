@@ -1,60 +1,118 @@
-// Importing the Airport data 
-var airports = require('./data_const.js')
+// Importing the Airport data
+import {
+  airports
+} from "./data_const.js";
 
-var Fuse = require('fuse.js')
+import Fuse from "fuse.js";
+
+// Development Link : https://rawgit.com/konsalex/Airport-Autocomplete-JS/master/airports.json
+// Should generate new link everytime for production?
+
+// Variables to Come as parameters
+var RETURNED_RESULTS = 10
 
 // Fuse Option. We should enable user to override parameters for this!
 var options = {
   shouldSort: true,
   threshold: 0.4,
   maxPatternLength: 32,
-  keys: [
-    {
+  keys: [{
       name: "IATA",
-      weight: 0.3
+      weight: 0.8
     },
     {
       name: "name",
-      weight: 0.4
+      weight: 0.3
     },
     {
       name: "city",
-      weight: 0.2
+      weight: 0.5
     }
   ]
 };
 
+var fuse = new Fuse(airports.airports, options);
 
 
-var fuse = new Fuse(airports.airports.airports, options);
 
 
-var ac = $("#autocomplete")
-  .on("click", function(e) {
-    e.stopPropagation();
-  })
-  .on("focus keyup", search)
-  .on("keydown", onKeyDown);
 
-var wrap = $("<div>")
-  .addClass("autocomplete-wrapper")
-  .insertBefore(ac)
-  .append(ac);
+// Replacement of .empty() function in Jquery 
 
-var list = $("<div>")
-  .addClass("autocomplete-results")
-  .on("click", ".autocomplete-result", function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    selectIndex($(this).data("index"));
-  })
-  .appendTo(wrap);
+function emptyChildNodes(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}
+
+// Elements with Jquery Declaration - Previous Implementation
+
+// var ac = $(".autocomplete")
+//   .on("click", function (e) {
+//     e.stopPropagation();
+//   })
+//   .on("focus keyup", search)
+//   .on("keydown", onKeyDown);
+
+
+// var wrap = $("<div>")
+//   .addClass("autocomplete-wrapper")
+//   .insertBefore(ac)
+//   .append(ac);
+
+
+// var list = $("<div>")
+//   .addClass("autocomplete-results")
+//   .on("click", ".autocomplete-result", function (e) {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     selectIndex($(this).data("index"));
+//   })
+//   .appendTo(wrap);
+
+
+/////////////////////////////////////////////////////////////////////////////
+//////////////////// Main VanillaJS implementation //////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+var ac = document.getElementsByClassName('autocomplete')[0]
+ac.addEventListener("click", function (e) {
+  e.stopPropagation();
+})
+ac.addEventListener("keyup", search)
+ac.addEventListener("focus", search)
+ac.addEventListener("keydown", onKeyDown);
+
+
+var wrap = document.createElement("div");
+wrap.className = "autocomplete-wrapper";
+ac.parentNode.insertBefore(wrap, ac);
+wrap.appendChild(ac);
+
+
+var list = document.createElement("div");
+list.className = "autocomplete-results";
+wrap.appendChild(list);
+
+var list = document.getElementsByClassName('autocomplete-results')[0]
+list.addEventListener("click", function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  selectIndex(this.getAttribute("data-highlight"));
+})
+
+
+/////////////////////////////////////////////////////////////////////////////
+//////////////////// Finito of VanillaJS ////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+
 
 $(document)
-  .on("mouseover", ".autocomplete-result", function(e) {
+  .on("mouseover", ".autocomplete-result", function (e) {
     var index = parseInt($(this).data("index"), 10);
     if (!isNaN(index)) {
-      list.attr("data-highlight", index);
+      list.setAttribute("data-highlight", index);
     }
   })
   .on("click", clearResults);
@@ -62,12 +120,13 @@ $(document)
 function clearResults() {
   results = [];
   numResults = 0;
-  list.empty();
+  emptyChildNodes(list)
+  // list.empty();
 }
 
 function selectIndex(index) {
-  if (results.length >= index + 1) {
-    ac.val(results[index].IATA + "  " + results[index].name);
+  if (results.length >= parseInt(index) + 1) {
+    ac.value = results[index].IATA + "  " + results[index].name;
     clearResults();
   }
 }
@@ -77,16 +136,21 @@ var numResults = 0;
 var selectedIndex = -1;
 
 function search(e) {
+  // 38 code = up Arrow
+  // 13 code = enter
+  // 40 code = down arrow
   if (e.which === 38 || e.which === 13 || e.which === 40) {
     return;
   }
 
-  if (ac.val().length > 0) {
-    results = fuse.search(ac.val()).slice(0, 3);
+  // Check if user have written anything
+  if (ac.value.length > 0) {
+    // Splice the results and 
+    results = fuse.search(ac.value).slice(0, RETURNED_RESULTS);
     console.log(results)
     numResults = results.length;
 
-    var divs = results.map(function(r, i) {
+    var divs = results.map(function (r, i) {
       return (
         '<div class="autocomplete-result single-result" data-index="' +
         i +
@@ -106,10 +170,19 @@ function search(e) {
     });
 
     selectedIndex = -1;
-    list.html(divs.join("")).attr("data-highlight", selectedIndex);
+    // Jquery - Inserts HTML code to the div of the list
+    // list.html(divs.join("")).attr("data-highlight", selectedIndex);
+
+    // Mine VanillaJS implementation of this 
+    document.getElementsByClassName('autocomplete-results')[0].innerHTML = divs.join("");
+
+
   } else {
     numResults = 0;
-    list.empty();
+    // Jquery - Removes all child nodes of the set of matched elements from the DOM.
+    // list.empty();
+    // Vanilla JS replacement by Konsalex (Xamos)
+    emptyChildNodes(list);
   }
 }
 
@@ -120,7 +193,7 @@ function onKeyDown(e) {
       if (selectedIndex <= -1) {
         selectedIndex = -1;
       }
-      list.attr("data-highlight", selectedIndex);
+      list.setAttribute("data-highlight", selectedIndex);
       break;
     case 13: // enter
       selectIndex(selectedIndex);
@@ -134,7 +207,8 @@ function onKeyDown(e) {
       if (selectedIndex >= numResults) {
         selectedIndex = numResults - 1;
       }
-      list.attr("data-highlight", selectedIndex);
+
+      list.setAttribute("data-highlight", selectedIndex);
       break;
 
     default:

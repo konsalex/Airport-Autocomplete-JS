@@ -5,6 +5,9 @@ browserify index.js -o bundle.js
 watchify index.js -o bundle.js
 
 # Build-Bundle-Minify
-# npm install uglify-es -g because simple uglifyjs doesn't support ES6
 
 browserify index.js | uglifyjs > bundle.min.js
+
+
+# Installed Babelify in order to enable import and export of the modules  with ES2015 syntax # 
+
