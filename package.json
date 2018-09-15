@@ -6,7 +6,7 @@
   "scripts": {
     "commit": "git-cz",
     "test": "mocha src/tests.js -w --require babel-core/register",
-    "test:single": "mocha src/tests.js",
+    "test:single": "mocha src/tests.js --require babel-core/register",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
     "prebuild": "rm -rf dist",
