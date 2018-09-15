@@ -16,8 +16,10 @@
     ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "semantic-release": "semantic-release"
+    "commit": "git-cz",
+    "test": "mocha src/tests.js -w",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "keywords": [
     "airport",
@@ -26,8 +28,8 @@
     "js",
     "npm"
   ],
-  "author": "Konsalex",
-  "license": "ISC",
+  "author": "Costa Alexoglou <konsalexee@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "fuse.js": "^3.2.1"
   },
@@ -35,13 +37,19 @@
     "babel-core": "^6.26.3",
     "babel-preset-es2015": "^6.24.1",
     "babelify": "8",
-    "semantic-release": "^15.9.15"
+    "commitizen": "2.10.1",
+    "cz-conventional-changelog": "2.1.0",
+    "semantic-release": "^15.9.15",
+    "travis-deploy-once": "^5.0.7"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/konsalex/Airport-Autocomple-Input.git"
+    "url": "https://github.com/konsalex/Airport-Autocomplete-JS.git"
   },
   "publishConfig": {
     "access": "restricted"
+  },
+  "czConfig":{
+    "path": "node_modules/cz-conventional-changelog"
   }
 }
