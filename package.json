@@ -53,7 +53,7 @@
     "url": "https://github.com/konsalex/Airport-Autocomplete-JS.git"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"
