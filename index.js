@@ -147,7 +147,6 @@ function search(e) {
   if (ac.value.length > 0) {
     // Splice the results and 
     results = fuse.search(ac.value).slice(0, RETURNED_RESULTS);
-    console.log(results)
     numResults = results.length;
 
     var divs = results.map(function (r, i) {

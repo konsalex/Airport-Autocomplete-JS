@@ -1,6 +1,6 @@
 {
   "name": "airport-autocomplete-js",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Airport Autocomplete input tag",
   "main": "index.js",
   "browserify": {
@@ -16,7 +16,8 @@
     ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "airport",
@@ -25,7 +26,7 @@
     "js",
     "npm"
   ],
-  "author": "Konsalex,Raptis",
+  "author": "Konsalex",
   "license": "ISC",
   "dependencies": {
     "fuse.js": "^3.2.1"
@@ -33,6 +34,14 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-es2015": "^6.24.1",
-    "babelify": "8"
+    "babelify": "8",
+    "semantic-release": "^15.9.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/konsalex/Airport-Autocomple-Input.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
