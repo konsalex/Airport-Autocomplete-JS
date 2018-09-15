@@ -2,6 +2,9 @@ language: node_js
 cache:
   directories:
     - ~/.npm
+branches:
+  only:
+    - master
 notifications:
   email: false
 node_js:
@@ -11,6 +14,9 @@ node_js:
   - '6'
 script:
   - npm run test:single
+  # I build here because prebuild command in package.json is executed only when a user
+  # is installing the package
+  - npm run build
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
 branches:
