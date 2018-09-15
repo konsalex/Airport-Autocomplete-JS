@@ -11,7 +11,7 @@ node_js:
   - '8'
   - '6'
 script:
-  - npm run test
+  - npm run test:single
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
 branches:
