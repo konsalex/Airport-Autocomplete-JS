@@ -3,4 +3,4 @@ import {
 } from 'chai';
 
 
-console.log("First Travis Test!");
+console.log("Trying to optimize NPM CI");
