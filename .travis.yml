@@ -18,9 +18,6 @@ script:
   # is installing the package
   - npm run build
 after_success:
-  # - npm run publish node_modules/
-  - cd node_modules
-  - pwd
   - npm run travis-deploy-once "npm run semantic-release"
 branches:
   except:

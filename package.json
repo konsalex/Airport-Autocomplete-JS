@@ -12,7 +12,7 @@
     "dev": "npx webpack-dev-server",
     "prebuild": "rm -rf dist && rm -rf node_dist",
     "build": "npm-run-all --parallel build:*",
-    "build:main": "babel --copy-files --out-dir node_dist --ignore tests.js src",
+    "build:main": "babel --copy-files --out-dir dist --ignore tests.js src",
     "build:browser": "webpack --output-filename index.browser.js",
     "build:browser-min": "webpack --output-filename index.browser.min.js -p"
   },
