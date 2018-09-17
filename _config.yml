@@ -1,1 +1,3 @@
 theme: jekyll-theme-minimal
+title: Aiport Autocomplete Package
+description: A lightweight implementation of aiport picker. The airport data are up-to-date and are scraped from OpenFlights (https://openflights.org/data.html) .
