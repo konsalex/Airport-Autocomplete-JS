@@ -17,8 +17,11 @@ script:
   # I build here because prebuild command in package.json is executed only when a user
   # is installing the package
   - npm run build
+  - npm run semantic-release-pre
 after_success:
-  - npm run travis-deploy-once "npm run semantic-release"
+  - npm run publish node_modules/
+  - npm run semantic-release-pro
+  # - npm run travis-deploy-once "npm run semantic-release"
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
