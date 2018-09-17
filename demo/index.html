@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Airport JS demo page</title>
+    <link rel="stylesheet" href="custom.css">
+</head>
+
+<body>
+
+    <div class="logo"><img src="https://konsalex.github.io/Airport-Autocomplete-JS/assets/img/airportjs.png" alt=""></div>
+    <div class="section group">
+        <div class="col span_1_of_5">
+
+        </div>
+        <div class="col span_1_of_5" style="text-align: center">
+            <input type="text" id="autocomplete-airport-2" class="inp" placeholder="Flight from">
+            <span class="border"></span>
+        </div>
+        <div class="col span_1_of_5" style="text-align: center">
+            Calculated Distance
+            </br>
+            <strong>. . .</strong>
+        </div>
+        <div class="col span_1_of_5" style="text-align: center">
+
+            <input type="text" id="autocomplete-airport-1" class="inp" placeholder="Flight To">
+            <span class="border"></span>
+        </div>
+        <div class="col span_1_of_5">
+
+        </div>
+    </div>
+
+</body>
+
+<script src="http://localhost:8080/main.bundle.js"></script>
+<script>
+    AirportInput("autocomplete-airport-1");
+    AirportInput("autocomplete-airport-2");
+
+
+
+    //Great Circle Distance calculation fuction
+    function distance(lat1, lon1, lat2, lon2) {
+        var R = 6371e3; // metres
+
+        lat1 = parseFloat(lat1)
+        lat2 = parseFloat(lat2)
+        lon1 = parseFloat(lon1)
+        lon2 = parseFloat(lon2)
+
+        var f1 = lat1.toRadians();
+        var f2 = lat2.toRadians();
+        var df = (lat2 - lat1).toRadians();
+        var dl = (lon2 - lon1).toRadians();
+
+        var a = Math.sin(df / 2) * Math.sin(df / 2) +
+            Math.cos(f1) * Math.cos(f2) *
+            Math.sin(dl / 2) * Math.sin(dl / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        var d = R * c;
+
+        return d;
+    }
+    if (typeof (Number.prototype.toRadians) === "undefined") {
+        Number.prototype.toRadians = function () {
+            return this * Math.PI / 180;
+        }
+    }
+
+
+
+    // Needs more elegan re-write (2min code to prove the distance func)
+    document.getElementById("autocomplete-airport-1").addEventListener('change', function () {
+        setTimeout(function () {
+            var lon1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lon");
+            var lat1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lat");
+            var lon2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lon");
+            var lat2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lat");
+            console.log("Changed Airport 1 Input")
+            if (lon1 && lon2) {
+                console.log(distance(lat1, lon1, lat2, lon2));
+            }
+        }, 3000);
+    });
+
+    document.getElementById("autocomplete-airport-2").addEventListener('change', function () {
+        setTimeout(function () {
+            var lon1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lon");
+            var lat1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lat");
+            var lon2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lon");
+            var lat2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lat");
+            console.log("Changed Airport 2 Input")
+            if (lon1 && lon2) {
+                console.log(distance(lat1, lon1, lat2, lon2));
+            }
+        }, 3000);
+
+    });
+</script>
+
+</html>

@@ -1,0 +1,189 @@
+// Variables
+$input-text-color: #a3a3a3;
+
+
+// Shout-out to https://codepen.io/andreasstorm for this excellent Form design 
+// and the intro to stylus magic (although Sass is love) and 
+// knowledge I gained with the antiliasing and nesting tags
+
+.autocomplete-result {
+    cursor: pointer;
+    margin-left: 2%;
+
+    &:hover {
+        background-color: #f2f2fc;
+    }
+}
+
+.autocomplete-results {
+    position: inherit;
+    background-color: #fff;
+    z-index: 100;
+    border-radius: 0px 0px 3px 3px;
+    box-shadow: -2px 3px 18px 0px rgba(0, 0, 0, 0.75);
+}
+
+
+body {
+    display: grid;
+    font-family: Avenir;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+* {
+    box-sizing: border-box
+}
+
+.inp {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: 280px;
+}
+
+.label {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    font-size: 16px;
+    color: #9098A9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all .2s ease;
+}
+
+.border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: #0077FF;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all .15s ease;
+}
+
+input {
+    -webkit-appearance: none;
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 0;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid #C8CCD4;
+    background: none;
+    border-radius: 0;
+    color: #223254;
+    transition: all .15s ease;
+
+    &:hover {
+        background: rgba(#223254, .03)
+    }
+
+    &:not(:placeholder-shown) {
+        +span {
+            color: rgb(0, 81, 255);
+            transform: translateY(-26px) scale(.75);
+        }
+    }
+
+    &:focus {
+        background: none;
+        outline: none;
+
+        +span {
+            transform: translateY(-26px) scale(0.75);
+
+            +.border {
+                transform: scaleX(1);
+            }
+        }
+    }
+}
+
+//Input Grid
+/*  SECTIONS  */
+.section {
+    clear: both;
+    padding: 0px;
+    margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+    display: block;
+    float: left;
+    margin: 1% 0 1% 1%;
+}
+
+.col:first-child {
+    margin-left: 0;
+}
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+    content: "";
+    display: table;
+}
+
+.group:after {
+    clear: both;
+}
+
+.group {
+    zoom: 1;
+    /* For IE 6/7 */
+}
+
+.span_5_of_5 {
+    width: 100%;
+}
+
+.span_4_of_5 {
+    width: 79.8%;
+}
+
+.span_3_of_5 {
+    width: 59.6%;
+}
+
+.span_2_of_5 {
+    width: 39.4%;
+}
+
+.span_1_of_5 {
+    width: 19.2%;
+}
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 480px) {
+    .col {
+        margin: 1% 0 1% 0%;
+    }
+
+    .span_1_of_5,
+    .span_2_of_5,
+    .span_3_of_5,
+    .span_4_of_5,
+    .span_5_of_5 {
+        width: 100%;
+    }
+}
+
+// Logo custom styling 
+.logo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 7%;
+
+    img {
+        max-width: 15%;
+    }
+}

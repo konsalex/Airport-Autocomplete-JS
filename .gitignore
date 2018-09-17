@@ -65,3 +65,4 @@ typings/
 ##### Custom Files #####
 .DS_Store
 dist/
+./demo/.sass-cache
