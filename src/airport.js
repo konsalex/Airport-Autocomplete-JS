@@ -12,7 +12,32 @@ function emptyChildNodes(node) {
 }
 
 
+// Check if arrays are equal ( Guess in the future Underscore will be an import to free me from Vanilla JSing)
+function arraysEqual(a, b) {
+    /*
+        Array-aware equality checker:
+        Returns whether arguments a and b are == to each other;
+        however if they are equal-lengthed arrays, returns whether their 
+        elements are pairwise == to each other recursively under this
+        definition.
+    */
+    if (a instanceof Array && b instanceof Array) {
+        if (a.length != b.length) // assert same length
+            return false;
+        for (var i = 0; i < a.length; i++) // assert each element equal
+            if (!arraysEqual(a[i], b[i]))
+                return false;
+        return true;
+    } else {
+        return a == b; // if not both arrays, should be the same
+    }
+}
+
+
+
 const airport_input = function (id, data, options) {
+
+    let listOfResults = []
 
     let fuse = new Fuse(data, options);
 
@@ -84,6 +109,9 @@ const airport_input = function (id, data, options) {
         if (ac.value.length > 0) {
             // Splice the results and 
             results = fuse.search(ac.value).slice(0, RETURNED_RESULTS);
+
+            if (arraysEqual(results, listOfResults)) return;
+
             numResults = results.length;
 
             const divs = results.map(function (r, i) {

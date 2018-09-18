@@ -15,17 +15,17 @@
 
         </div>
         <div class="col span_1_of_5" style="text-align: center">
-            <input type="text" id="autocomplete-airport-2" class="inp" placeholder="Flight from">
+            <input type="text" id="autocomplete-airport-1" class="inp" placeholder="Flight from" onchange="checkDistance(this)">
             <span class="border"></span>
         </div>
         <div class="col span_1_of_5" style="text-align: center">
             Calculated Distance
             </br>
-            <strong>. . .</strong>
+            <strong id="distance">. . .</strong>
         </div>
         <div class="col span_1_of_5" style="text-align: center">
 
-            <input type="text" id="autocomplete-airport-1" class="inp" placeholder="Flight To">
+            <input type="text" id="autocomplete-airport-2" class="inp" placeholder="Flight To" onchange="checkDistance(this)">
             <span class="border"></span>
         </div>
         <div class="col span_1_of_5">
@@ -39,8 +39,6 @@
 <script>
     AirportInput("autocomplete-airport-1");
     AirportInput("autocomplete-airport-2");
-
-
 
     //Great Circle Distance calculation fuction
     function distance(lat1, lon1, lat2, lon2) {
@@ -71,35 +69,26 @@
         }
     }
 
+    function checkInputData(id) {
+        var realId = "autocomplete-airport-" + id
+        return ([document.getElementById(realId).getAttribute("data-lat"), document.getElementById(realId).getAttribute(
+            "data-lon")])
+    }
 
-
-    // Needs more elegan re-write (2min code to prove the distance func)
-    document.getElementById("autocomplete-airport-1").addEventListener('change', function () {
+    function checkDistance(self) {
+        console.log("Input changed: " + self["id"])
         setTimeout(function () {
-            var lon1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lon");
-            var lat1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lat");
-            var lon2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lon");
-            var lat2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lat");
-            console.log("Changed Airport 1 Input")
-            if (lon1 && lon2) {
-                console.log(distance(lat1, lon1, lat2, lon2));
+            console.log(self.getAttribute("data-lon"))
+            var idChanged = self["id"].slice(-1)
+            console.log(checkInputData(1))
+            console.log(checkInputData(2))
+            if (checkInputData(1)[0] && checkInputData(2)[0]) {
+                document.getElementById("distance").innerHTML = distance(...checkInputData(1), ...
+                    checkInputData(2)) + " Km";
             }
-        }, 3000);
-    });
+        }, 200)
 
-    document.getElementById("autocomplete-airport-2").addEventListener('change', function () {
-        setTimeout(function () {
-            var lon1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lon");
-            var lat1 = document.getElementById("autocomplete-airport-1").getAttribute("data-lat");
-            var lon2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lon");
-            var lat2 = document.getElementById("autocomplete-airport-2").getAttribute("data-lat");
-            console.log("Changed Airport 2 Input")
-            if (lon1 && lon2) {
-                console.log(distance(lat1, lon1, lat2, lon2));
-            }
-        }, 3000);
-
-    });
+    }
 </script>
 
 </html>

@@ -41,6 +41,7 @@ const options = {
 };
 
 async function AirportInput(id, fuses_options = options) {
+
   // Create a promise to handle airport data fetching from the RawGit
   let airports_data = new Promise((resolve, reject) => {
     if (FETCH_TRIES) {
