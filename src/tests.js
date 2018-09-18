@@ -3,4 +3,4 @@ import {
 } from 'chai';
 
 
-console.log("Trying to optimize NPM CI");
+console.log("Semantic Release body convention"); 
