@@ -12,7 +12,7 @@ module.exports = {
     entry: './src/index.js',
     mode: 'development',
     output: {
-        path: path.resolve(__dirname, 'browser_files'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'main.bundle.js',
         libraryTarget: 'umd',
         library: 'airportjs',
