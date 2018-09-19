@@ -18,7 +18,7 @@ This package aims to be used in travel websites, flight claiming platforms and a
 ## Installation 🐲
 
 ### Option 1: Node package
-You can isntall it just by typing 
+You can install it just by typing 
 ```
 npm i install airport-autocomplete-js
 ``` 
