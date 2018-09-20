@@ -20,7 +20,7 @@ This package aims to be used in travel websites, flight claiming platforms and a
 ### Option 1: Node package
 You can install it just by typing 
 ```
-npm i install airport-autocomplete-js
+npm -i airport-autocomplete-js
 ``` 
  or if you have yarn
 ```
