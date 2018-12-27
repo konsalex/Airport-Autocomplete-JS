@@ -9,7 +9,7 @@ This package depends on [Fuse.js](http://fusejs.io/) in order to search efficien
 
 You can find the airport.json under the `src/data` folder. The data has being scrapped from [OpenFlights.org](https://openflights.org/data.html)
 
-As you can see in the code in order to minimize the js size and serve it fast, the airport json is being fetched only when needed from [RawGit](https://rawgit.com/).
+As you can see in the code in order to minimize the js size and serve it fast, the airport json is being fetched only when needed from [Github](https://raw.githubusercontent.com/konsalex/Airport-Autocomplete-JS/master/src/data/airports.json).
 
 This package aims to be used in travel websites, flight claiming platforms and anywhere you would love to. 
 
@@ -90,7 +90,24 @@ Here is a gif demonstrating the functionality.
 
 ---
 
-## Next steps 
+## Contribute 🧪
 
-Make it more dev-friendly for other devs to come and contribute and create framework specific packages (React, Angular). 
-And maybe write the first tests 👨🏻‍💻
+After a few months the next update is here 🎉
+
+Want to contribute? Just jump in and follow the instructions.
+
+1. Install dependencies.
+
+2. Run the dev script.
+
+3. Open the index.html from `demo` folder and start testing and developing.
+
+## News
+
+Changes:
+
+1. Cleaned the aiport data, minimized International to Intl , removed 'Airport' as a word from the dataset.
+
+2. Fixed double fetch of Airport Data, thanks @meeuwsen for noticing 🤟
+
+3. Improved CSS styling 💅 and I need feedback from you to make new changes and make it even more dev friendly!

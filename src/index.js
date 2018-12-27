@@ -1,20 +1,22 @@
 // Import polyfill for async support
-import "@babel/polyfill";
+import '@babel/polyfill';
 
 ///////////////////////////////
 ////// Custom Imports  ///////
 //////////////////////////////
-import airport_input from "./airport.js";
+import airport_input from './airport.js';
 
-// Development Link : https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json
+// Development Link :
+// https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json
 // Should generate new link everytime for production?
 
 const AIRPORT_URL =
-  "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json";
+  'https://raw.githubusercontent.com/konsalex/Airport-Autocomplete-JS/master/src/data/airports.json';
 
 let airports;
 
-let FETCH_TRIES = false;
+let fetchTries = false;
+let pending = true;
 
 ///////////////////////////////
 // Airport Autocomplete //////
@@ -25,43 +27,56 @@ const options = {
   shouldSort: true,
   threshold: 0.4,
   maxPatternLength: 32,
-  keys: [{
-      name: "IATA",
-      weight: 0.6
+  keys: [
+    {
+      name: 'IATA',
+      weight: 0.6,
     },
     {
-      name: "name",
-      weight: 0.4
+      name: 'name',
+      weight: 0.4,
     },
     {
-      name: "city",
-      weight: 0.2
-    }
-  ]
+      name: 'city',
+      weight: 0.2,
+    },
+  ],
 };
 
 async function AirportInput(id, fuses_options = options) {
-
   // Create a promise to handle airport data fetching from the RawGit
-  let airports_data = new Promise((resolve, reject) => {
-    if (FETCH_TRIES) {
-      console.log("I have the airports");
-    } else {
-      fetch(AIRPORT_URL) // Call the fetch function passing the url of the API as a parameter
-        .then(function (response) {
-          return response.json();
-        })
-        .then(data => {
-          airports = data;
-          resolve(data);
-        });
-    }
+  const airports_data = new Promise(resolve => {
+    const FetchingFunction = () => {
+      if (fetchTries) {
+        console.log('I am waiting for another id to fetch the airports');
+        if (!pending) {
+          clearInterval(cron);
+          resolve(airports);
+        }
+      } else {
+        fetchTries = true;
+        // Call the fetch function passing the url of the API as a parameter
+        fetch(AIRPORT_URL)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(data => {
+            pending = false;
+            airports = data;
+            clearInterval(cron);
+            resolve(data);
+          });
+      }
+    };
+    const cron = setInterval(FetchingFunction, 500);
   });
 
-  if (typeof airports === "undefined") {
-    let airports = await airports_data; // wait till the promise resolves (*)
+  if (typeof airports === 'undefined' && pending) {
+    airports = await airports_data; // wait till the promise resolves (*)
   }
-  airport_input(id, airports.airports, options);
+  const { airports: airportList } = airports;
+
+  airport_input(id, airportList, options);
 }
 
 window.AirportInput = AirportInput;

@@ -1,6 +1,3 @@
-import {
-    expect
-} from 'chai';
+import { expect } from 'chai';
 
-
-console.log("Semantic Release body convention"); 
+console.log('Semantic Release body convention');
