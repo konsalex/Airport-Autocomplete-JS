@@ -18,9 +18,9 @@ This package aims to be used in travel websites, flight claiming platforms and a
 ## Installation 🐲
 
 ### Option 1: Node package
-You can isntall it just by typing 
+You can install it just by typing 
 ```
-npm i install airport-autocomplete-js
+npm -i airport-autocomplete-js
 ``` 
  or if you have yarn
 ```
@@ -32,7 +32,7 @@ yarn add airport-autocomplete-js
 Just include the script in your page served by [jsDelivr](https://www.jsdelivr.com/) CDN 
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@2.0.2/index.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@2.0.2/dist/index.browser.min.js"></script>
 ```
 
 
