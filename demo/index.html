@@ -38,7 +38,15 @@
 <script src="http://localhost:8080/main.bundle.js"></script>
 <script>
     AirportInput("autocomplete-airport-1");
-    AirportInput("autocomplete-airport-2");
+
+    // Example options for Formatting
+    var options = {
+        formatting: `<div class="$(unique-result)"
+                     single-result" 
+                     data-index="$(i)"> 
+                   $(IATA) </div>`
+    };
+    AirportInput("autocomplete-airport-2", options);
 
     //Great Circle Distance calculation fuction
     function distance(lat1, lon1, lat2, lon2) {
@@ -84,7 +92,7 @@
             console.log(checkInputData(2))
             if (checkInputData(1)[0] && checkInputData(2)[0]) {
                 document.getElementById("distance").innerHTML = distance(...checkInputData(1), ...
-                    checkInputData(2)) + " Km";
+                    checkInputData(2)) / 1000 + " Km";
             }
         }, 200)
 

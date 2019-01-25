@@ -23,7 +23,7 @@ let pending = true;
 //////////////////////////////
 
 // Fuse Option. We should enable user to override parameters for this!
-const options = {
+const fuse_options = {
   shouldSort: true,
   threshold: 0.4,
   maxPatternLength: 32,
@@ -43,12 +43,42 @@ const options = {
   ],
 };
 
-async function AirportInput(id, fuses_options = options) {
+const Formatting = `<div class="$(unique-result)"
+                     single-result" 
+                     data-index="$(i)"> 
+                     $(name) $(IATA) 
+                    </br>
+                    $(city) ,$(country)
+                    </div>`;
+
+const default_options = {
+  fuse_options,
+  // the formatting of the suggestions
+  formatting: Formatting,
+  // the maximum number of suggestions
+  max_returned_results: 5,
+};
+
+/**
+ * AirportInput(id, options = default_options)
+ * Takes as inputs the following ->
+ * id : The id of the input element is the webpage
+ * options : A js object defining the Fuse options but also the
+ *           formatting of the suggestions; more are going to be added
+ *
+ */
+
+async function AirportInput(id, options = default_options) {
+  const mergedOptions = {
+    ...default_options,
+    ...options,
+  };
+
   // Create a promise to handle airport data fetching from the RawGit
   const airports_data = new Promise(resolve => {
     const FetchingFunction = () => {
       if (fetchTries) {
-        console.log('I am waiting for another id to fetch the airports');
+        // console.log('I am waiting for another id to fetch the airports');
         if (!pending) {
           clearInterval(cron);
           resolve(airports);
@@ -76,7 +106,7 @@ async function AirportInput(id, fuses_options = options) {
   }
   const { airports: airportList } = airports;
 
-  airport_input(id, airportList, options);
+  airport_input(id, airportList, mergedOptions);
 }
 
 window.AirportInput = AirportInput;

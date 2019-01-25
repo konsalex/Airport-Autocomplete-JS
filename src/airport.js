@@ -1,8 +1,5 @@
 import Fuse from 'fuse.js';
 
-// Variables to Come as parameters
-const RETURNED_RESULTS = 5;
-
 // Simulates Jquery .empty() behavior but a little bit more Vanilla
 function emptyChildNodes(node) {
   while (node.firstChild) {
@@ -39,7 +36,7 @@ function arraysEqual(a, b) {
 const airport_input = function(id, data, options) {
   const listOfResults = [];
 
-  const fuse = new Fuse(data, options);
+  const fuse = new Fuse(data, options.fuse_options);
 
   const ac = document.getElementById(id);
   ac.addEventListener('click', function(e) {
@@ -105,20 +102,22 @@ const airport_input = function(id, data, options) {
     // Check if user have written anything
     if (ac.value.length > 0) {
       // Splice the results and
-      results = fuse.search(ac.value).slice(0, RETURNED_RESULTS);
+      results = fuse.search(ac.value).slice(0, options.max_returned_results);
 
       if (arraysEqual(results, listOfResults)) return;
 
       numResults = results.length;
 
       const divs = results.map((r, i) => {
-        return `<div class=" ${autocomplete_result} 
-                     single-result" 
-                     data-index="${i}"> 
-                     ${r.name} (${r.IATA}) 
-                    </br>
-                    ${r.city} ,${r.country}
-                    </div> `;
+        const result = options.formatting
+          .replace('$(unique-result)', autocomplete_result)
+          .replace('$(i)', i)
+          .replace('$(name)', r.name)
+          .replace('$(IATA)', r.IATA)
+          .replace('$(city)', r.city)
+          .replace('$(country)', r.country);
+
+        return result;
       });
 
       selectedIndex = -1;
