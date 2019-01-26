@@ -1,6 +1,6 @@
 {
   "name": "airport-autocomplete-js",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Airport Autocomplete input tag",
   "main": "dist/index.js",
   "scripts": {
