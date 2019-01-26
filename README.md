@@ -123,7 +123,7 @@ The formatting string parameters are listed below:
 | Data        | Syntax           | Required  |
 | ------------- |:-------------:| -----:|
 | Unique ID     | $(unique-result) | `True` |
-| Result Index    | $(i) | `False` |
+| Result Index    | data-index="$(i)" | `True` |
 | Airport Name     | $(name) | `False` |
 | Airport IATA code     | $(IATA) | `False` |
 | Airport Country     | $(country) | `False` |
