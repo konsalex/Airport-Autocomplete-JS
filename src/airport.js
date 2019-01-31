@@ -63,6 +63,8 @@ const airport_input = function(id, data, options) {
   list.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
+    console.log("Erxomai kai den vriskw")
+    console.log(this.getAttribute('data-highlight'))
     selectIndexFunc(this.getAttribute('data-highlight'));
   });
 
@@ -110,12 +112,12 @@ const airport_input = function(id, data, options) {
 
       const divs = results.map((r, i) => {
         const result = options.formatting
-          .replace('$(unique-result)', autocomplete_result)
-          .replace('$(i)', i)
-          .replace('$(name)', r.name)
-          .replace('$(IATA)', r.IATA)
-          .replace('$(city)', r.city)
-          .replace('$(country)', r.country);
+          .replace(new RegExp('\\$\\(unique-result\\)', 'g'), autocomplete_result)
+          .replace(new RegExp('\\$\\(i\\)', 'g'), i)
+          .replace(new RegExp('\\$\\(name\\)', 'g'), r.name)
+          .replace(new RegExp('\\$\\(IATA\\)', 'g'), r.IATA)
+          .replace(new RegExp('\\$\\(city\\)', 'g'), r.city)
+          .replace(new RegExp('\\$\\(country\\)', 'g'), r.country)
 
         return result;
       });
