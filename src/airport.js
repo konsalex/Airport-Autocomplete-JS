@@ -7,8 +7,7 @@ function emptyChildNodes(node) {
   }
 }
 
-// Check if arrays are equal ( Guess in the future Underscore will
-// be an import to free me from Vanilla JSing)
+// Check if arrays are equal
 function arraysEqual(a, b) {
   /*
         Array-aware equality checker:
@@ -63,8 +62,6 @@ const airport_input = function(id, data, options) {
   list.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Erxomai kai den vriskw")
-    console.log(this.getAttribute('data-highlight'))
     selectIndexFunc(this.getAttribute('data-highlight'));
   });
 
@@ -97,6 +94,14 @@ const airport_input = function(id, data, options) {
     // 38 code = up Arrow
     // 13 code = enter
     // 40 code = down arrow
+
+    // Add global event listener for click
+    // If the click is not a result it will clear all the suggestions
+    document.addEventListener('click', function globalClickListener(evnt) {
+      clearResults();
+      document.removeEventListener('click', globalClickListener);
+    });
+
     if (e.which === 38 || e.which === 13 || e.which === 40) {
       return;
     }
@@ -112,12 +117,15 @@ const airport_input = function(id, data, options) {
 
       const divs = results.map((r, i) => {
         const result = options.formatting
-          .replace(new RegExp('\\$\\(unique-result\\)', 'g'), autocomplete_result)
+          .replace(
+            new RegExp('\\$\\(unique-result\\)', 'g'),
+            autocomplete_result
+          )
           .replace(new RegExp('\\$\\(i\\)', 'g'), i)
           .replace(new RegExp('\\$\\(name\\)', 'g'), r.name)
           .replace(new RegExp('\\$\\(IATA\\)', 'g'), r.IATA)
           .replace(new RegExp('\\$\\(city\\)', 'g'), r.city)
-          .replace(new RegExp('\\$\\(country\\)', 'g'), r.country)
+          .replace(new RegExp('\\$\\(country\\)', 'g'), r.country);
 
         return result;
       });

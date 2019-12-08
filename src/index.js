@@ -6,9 +6,6 @@ import '@babel/polyfill';
 //////////////////////////////
 import airport_input from './airport.js';
 
-// Development Link :
-// https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json
-// Should generate new link everytime for production?
 
 const AIRPORT_URL =
   'https://raw.githubusercontent.com/konsalex/Airport-Autocomplete-JS/master/src/data/airports.json';
