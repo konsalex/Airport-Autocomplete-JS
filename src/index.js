@@ -6,7 +6,6 @@ import '@babel/polyfill';
 //////////////////////////////
 import airport_input from './airport.js';
 
-
 const AIRPORT_URL =
   'https://raw.githubusercontent.com/konsalex/Airport-Autocomplete-JS/master/src/data/airports.json';
 
@@ -19,7 +18,7 @@ let pending = true;
 // Airport Autocomplete //////
 //////////////////////////////
 
-// Fuse Option. We should enable user to override parameters for this!
+// Fuse Options, can be overriden from dev
 const fuse_options = {
   shouldSort: true,
   threshold: 0.4,
@@ -27,15 +26,15 @@ const fuse_options = {
   keys: [
     {
       name: 'IATA',
-      weight: 0.6,
+      weight: 0.25,
     },
     {
       name: 'name',
-      weight: 0.4,
+      weight: 0.25,
     },
     {
       name: 'city',
-      weight: 0.2,
+      weight: 0.5,
     },
   ],
 };
@@ -101,9 +100,8 @@ async function AirportInput(id, options = default_options) {
   if (typeof airports === 'undefined' && pending) {
     airports = await airports_data; // wait till the promise resolves (*)
   }
-  const { airports: airportList } = airports;
 
-  airport_input(id, airportList, mergedOptions);
+  airport_input(id, airports, mergedOptions);
 }
 
 window.AirportInput = AirportInput;
