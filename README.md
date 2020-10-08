@@ -89,15 +89,15 @@ const options = {
       maxPatternLength: 32,
       keys: [{
           name: "IATA",
-          weight: 0.6
+          weight: 0.25
         },
         {
           name: "name",
-          weight: 0.4
+          weight: 0.25
         },
         {
           name: "city",
-          weight: 0.2
+          weight: 0.5
         }
       ]
     }
